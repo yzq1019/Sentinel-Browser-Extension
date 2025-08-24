@@ -1,0 +1,169 @@
+{
+  "template_id": "sentinel_1",
+  "template_name": "Sentinel Rating Template",
+  "template_version": "1.0.0",
+  "description": "A comprehensive rating template for evaluating content across political, social, and quality dimensions",
+  "rating_dimensions": {
+    "left_right_economics": {
+      "name": "Left/Right Economics",
+      "max": 10,
+      "min": 1,
+      "category": "political",
+      "description": {
+        "1": "Far left (e.g., communist)",
+        "5": "Centrist/moderate",
+        "10": "Far right (e.g., extreme market liberal)"
+      }
+    },
+    "authoritarian_libertarian_culture": {
+      "name": "Authoritarian/Libertarian Culture",
+      "max": 10,
+      "min": 1,
+      "category": "political",
+      "description": {
+        "1": "Far left",
+        "5": "Centrist",
+        "10": "Far right"
+      }
+    },
+    "sexual_content": {
+      "name": "Sexual Content",
+      "max": 10,
+      "min": 1,
+      "category": "content",
+      "description": {
+        "1": "No sexual content",
+        "5": "Moderate sexual content",
+        "10": "Hardcore sexual content"
+      }
+    },
+    "self_harm_content": {
+      "name": "Self-harm Content",
+      "max": 10,
+      "min": 1,
+      "category": "content",
+      "description": {
+        "1": "No issues",
+        "5": "Moderate concerns",
+        "10": "Very dangerous"
+      }
+    },
+    "violence": {
+      "name": "Violence",
+      "max": 10,
+      "min": 1,
+      "category": "content",
+      "description": {
+        "1": "Non-violent",
+        "5": "Moderate violence",
+        "10": "Very violent"
+      }
+    },
+    "racism": {
+      "name": "Racism",
+      "max": 10,
+      "min": 1,
+      "category": "discrimination",
+      "description": {
+        "1": "Non-racist",
+        "5": "Moderate concerns",
+        "10": "Very racist"
+      }
+    },
+    "anti_semitism": {
+      "name": "Anti-semitism",
+      "max": 10,
+      "min": 1,
+      "category": "discrimination",
+      "description": {
+        "1": "Non-anti-semitic",
+        "5": "Moderate concerns",
+        "10": "Very anti-semitic"
+      }
+    },
+    "islamophobia": {
+      "name": "Islamophobia",
+      "max": 10,
+      "min": 1,
+      "category": "discrimination",
+      "description": {
+        "1": "Non-islamophobia",
+        "5": "Moderate concerns",
+        "10": "Very islamophobia"
+      }
+    },
+    "profanity": {
+      "name": "Profanity",
+      "max": 10,
+      "min": 1,
+      "category": "quality",
+      "description": {
+        "1": "No profanity",
+        "5": "Moderate profanity",
+        "10": "Excessive profanity"
+      }
+    },
+    "content_quality": {
+      "name": "Content Quality",
+      "max": 5,
+      "min": 1,
+      "category": "quality",
+      "description": {
+        "1": "Poor",
+        "3": "Average",
+        "5": "Excellent"
+      }
+    },
+    "misinformation": {
+      "name": "Misinformation",
+      "max": 10,
+      "min": 1,
+      "category": "quality",
+      "description": {
+        "1": "Very well informed",
+        "5": "Moderate accuracy",
+        "10": "Complete misinformation"
+      }
+    },
+    "food_quality": {
+      "name": "Food Quality",
+      "max": 5,
+      "min": 1,
+      "category": "service",
+      "description": {
+        "1": "Poor",
+        "3": "Average",
+        "5": "Excellent"
+      }
+    },
+    "hygiene": {
+      "name": "Hygiene",
+      "max": 5,
+      "min": 1,
+      "category": "service",
+      "description": {
+        "1": "Poor",
+        "3": "Average",
+        "5": "Excellent"
+      }
+    },
+    "service_quality": {
+      "name": "Service Quality",
+      "max": 5,
+      "min": 1,
+      "category": "service",
+      "description": {
+        "1": "Poor",
+        "3": "Average",
+        "5": "Excellent"
+      }
+    }
+  },
+  "metadata": {
+    "author": "Sentinel Project Team",
+    "created_date": "2025-08-10T00:00:00Z",
+    "last_modified": "2025-08-10T00:00:00Z",
+    "license": "MIT License",
+    "tags": ["content-moderation", "political", "social", "quality", "service"]
+  }
+}

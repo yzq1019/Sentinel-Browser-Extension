@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Website Rating</title>
+  <style>
+    body {
+      width: 600px;
+      padding: 15px;
+      font-family: Arial, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+      background: #f4f6fa;
+    }
+    .main-content {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .left-column {
+      flex: 2;
+      min-width: 300px;
+    }
+    .right-column {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .input-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 4px;
+      font-size: 15px;
+    }
+    .input-group input[type="text"],
+    .input-group input[type="email"],
+    .input-group textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    .input-group textarea {
+      height: 100px;
+      resize: vertical;
+    }
+    .multi-rating {
+      margin: 0;
+      padding: 0;
+    }
+    .rating-item {
+      margin-bottom: 18px;
+      padding: 10px 8px;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .rating-item label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 15px;
+    }
+    .rating-item select {
+      margin-bottom: 6px;
+      margin-top: 2px;
+      font-size: 15px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      background: #f8f8fa;
+    }
+    .rating-desc {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #888;
+      margin-top: 2px;
+    }
+    .template-info {
+      background: #e8f4fd;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      border-left: 4px solid #3b82f6;
+    }
+    .template-info h3 {
+      margin: 0 0 8px 0;
+      color: #1e40af;
+      font-size: 16px;
+    }
+    .template-info p {
+      margin: 4px 0;
+      font-size: 13px;
+      color: #374151;
+    }
+    .rating-category {
+      margin-bottom: 20px;
+      padding: 12px;
+      background: #f8fafc;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+    .category-title {
+      margin: 0 0 12px 0;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #3b82f6;
+      color: #1e40af;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .current-url {
+      font-size: 14px;
+      color: #666;
+      word-break: break-all;
+      margin-bottom: 10px;
+      text-align: center;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    button[type="submit"] {
+      display: block;
+      margin: 18px auto 0 auto;
+      padding: 8px 24px;
+      font-size: 15px;
+      background: #3b82f6;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      transition: background 0.2s;
+    }
+    button[type="submit"]:hover {
+      background: #2563eb;
+    }
+    .score-bar-container {
+      position: relative;
+      height: 48px;
+      margin: 18px 0 10px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .score-bar-bg, .score-bar-fg {
+      position: absolute;
+      left: 0; top: 18px;
+      height: 6px;
+      border-radius: 3px;
+    }
+    .score-bar-bg {
+      width: 100%;
+      background: #e5e7eb;
+      z-index: 1;
+      cursor: pointer;
+    }
+    .score-bar-fg {
+      background: #3b82f6;
+      z-index: 2;
+      width: 0;
+      transition: width 0.2s;
+      pointer-events: none;
+    }
+    .score-ticks {
+      position: absolute;
+      left: 0; top: 0; width: 100%; height: 100%;
+      z-index: 3;
+      pointer-events: none;
+    }
+    .score-tick {
+      position: absolute;
+      top: 6px;
+      width: 3px;
+      height: 24px;
+      background: #bbb;
+      transition: background 0.2s;
+      pointer-events: auto;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+    .score-tick.selected {
+      background: #3b82f6;
+    }
+    .score-label {
+      position: absolute;
+      top: 34px;
+      font-size: 13px;
+      color: #888;
+      min-width: 18px;
+      text-align: center;
+      transform: translateX(-50%);
+      pointer-events: none;
+      font-weight: 500;
+    }
+    .score-label.selected {
+      color: #2563eb;
+      font-weight: bold;
+    }
+    .score-value {
+      display: none;
+    }
+    .footer-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 15px;
+      border-top: 1px solid #eee;
+      gap: 20px;
+    }
+    .footer-actions button {
+       padding: 12px 32px;
+       font-size: 15px;
+       border: none;
+       border-radius: 6px;
+       cursor: pointer;
+       box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+       transition: background 0.2s;
+       height: 48px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       margin: 0;
+       min-width: 160px;
+    }
+    .footer-actions button[type="submit"] {
+      background: #3b82f6;
+      color: #fff;
+    }
+    .footer-actions button[type="submit"]:hover {
+      background: #2563eb;
+    }
+    .footer-actions button.restore-defaults {
+      background: #e0e0e0;
+      color: #333;
+    }
+    .footer-actions button.restore-defaults:hover {
+       background: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="current-url"></div>
+  <div class="main-content">
+    <div class="left-column">
+      <form class="multi-rating">
+        <!-- 模板信息显示 -->
+        <div class="template-info" id="template-info" style="display: none;">
+          <h3>Template: <span id="template-name"></span></h3>
+          <p id="template-description"></p>
+          <p>Version: <span id="template-version"></span> | Dimensions: <span id="template-dimensions"></span></p>
+        </div>
+        
+        <!-- 动态评分容器 -->
+        <div id="dynamic-rating-container">
+          <!-- 评分项将在这里动态生成 -->
+        </div>
+        
+        <!-- 备用静态评分项（如果动态加载失败） -->
+        <div id="static-rating-container">
+          <div class="rating-item">
+            <label>Left/Right Economics (1-10):</label>
+            <div class="score-bar-container" data-max="10" data-name="left_right_economics">
+              <div class="score-bar-bg"></div>
+              <div class="score-bar-fg"></div>
+              <div class="score-ticks"></div>
+              <input type="hidden" name="left_right_economics" value="0">
+            </div>
+            <div class="rating-desc"><span>1: Far left (e.g., communist)</span><span>10: Far right (e.g., extreme market liberal)</span></div>
+          </div>
+          <div class="rating-item">
+            <label>Authoritarian/Libertarian Culture (1-10):</label>
+            <div class="score-bar-container" data-max="10" data-name="authoritarian_libertarian_culture">
+              <div class="score-bar-bg"></div>
+              <div class="score-bar-fg"></div>
+              <div class="score-ticks"></div>
+              <input type="hidden" name="authoritarian_libertarian_culture" value="0">
+            </div>
+            <div class="rating-desc"><span>1: Far left</span><span>10: Far right</span></div>
+          </div>
+          <div class="rating-item">
+            <label>Sexual Content (1-10):</label>
+            <div class="score-bar-container" data-max="10" data-name="sexual_content">
+              <div class="score-bar-bg"></div>
+              <div class="score-bar-fg"></div>
+              <div class="score-ticks"></div>
+              <input type="hidden" name="sexual_content" value="0">
+            </div>
+            <div class="rating-desc"><span>1: No sexual content</span><span>10: Hardcore sexual content</span></div>
+          </div>
+          <div class="rating-item">
+            <label>Self-harm Content (1-10):</label>
+            <div class="score-bar-container" data-max="10" data-name="self_harm_content">
+              <div class="score-bar-bg"></div>
+              <div class="score-bar-fg"></div>
+              <div class="score-ticks"></div>
+              <input type="hidden" name="self_harm_content" value="0">
+            </div>
+            <div class="rating-desc"><span>1: No issues</span><span>10: Very dangerous</span></div>
+          </div>
+          <div class="rating-item">
+            <label>Violence (1-10):</label>
+            <div class="score-bar-container" data-max="10" data-name="violence">
+              <div class="score-bar-bg"></div>
+              <div class="score-bar-fg"></div>
+              <div class="score-ticks"></div>
+              <input type="hidden" name="violence" value="0">
+            </div>
+            <div class="rating-desc"><span>1: Non-violent</span><span>10: Very violent</span></div>
+          </div>
+          <div class="rating-item">
+            <label>Racism (1-10):</label>
+            <div class="score-bar-container" data-max="10" data-name="racism">
+              <div class="score-bar-bg"></div>
+              <div class="score-bar-fg"></div>
+              <div class="score-ticks"></div>
+              <input type="hidden" name="racism" value="0">
+            </div>
+            <div class="rating-desc"><span>1: Non-racist</span><span>10: Very racist</span></div>
+          </div>
+          <div class="rating-item">
+            <label>Anti-semitism (1-10):</label>
+            <div class="score-bar-container" data-max="10" data-name="anti_semitism">
+              <div class="score-bar-bg"></div>
+              <div class="score-bar-fg"></div>
+              <div class="score-ticks"></div>
+              <input type="hidden" name="anti_semitism" value="0">
+            </div>
+            <div class="rating-desc"><span>1: Non-anti-semitic</span><span>10: Very anti-semitic</span></div>
+          </div>
+          <div class="rating-item">
+            <label>Islamophobia (1-10):</label>
+            <div class="score-bar-container" data-max="10" data-name="islamophobia">
+              <div class="score-bar-bg"></div>
+              <div class="score-bar-fg"></div>
+              <div class="score-ticks"></div>
+              <input type="hidden" name="islamophobia" value="0">
+            </div>
+            <div class="rating-desc"><span>1: Non-islamophobia</span><span>10: Very islamophobia</span></div>
+          </div>
+          <div class="rating-item">
+            <label>Profanity (1-10):</label>
+            <div class="score-bar-container" data-max="10" data-name="profanity">
+              <div class="score-bar-bg"></div>
+              <div class="score-bar-fg"></div>
+              <div class="score-ticks"></div>
+              <input type="hidden" name="profanity" value="0">
+            </div>
+            <div class="rating-desc"><span>1: No profanity</span><span>10: Excessive profanity</span></div>
+          </div>
+          <div class="rating-item">
+            <label>Content Quality (1-5):</label>
+            <div class="score-bar-container" data-max="5" data-name="content_quality">
+              <div class="score-bar-bg"></div>
+              <div class="score-bar-fg"></div>
+              <div class="score-ticks"></div>
+              <input type="hidden" name="content_quality" value="0">
+            </div>
+            <div class="rating-desc"><span>1: Poor</span><span>5: Excellent</span></div>
+          </div>
+          <div class="rating-item">
+            <label>Misinformation (1-10):</label>
+            <div class="score-bar-container" data-max="10" data-name="misinformation">
+              <div class="score-bar-bg"></div>
+              <div class="score-bar-fg"></div>
+              <div class="score-ticks"></div>
+              <input type="hidden" name="misinformation" value="0">
+            </div>
+            <div class="rating-desc"><span>1: Very well informed</span><span>10: Complete misinformation</span></div>
+          </div>
+          <div class="rating-item">
+            <label>Food Quality (1-5):</label>
+            <div class="score-bar-container" data-max="5" data-name="food_quality">
+              <div class="score-bar-bg"></div>
+              <div class="score-bar-fg"></div>
+              <div class="score-ticks"></div>
+              <input type="hidden" name="food_quality" value="0">
+            </div>
+            <div class="rating-desc"><span>1: Poor</span><span>5: Excellent</span></div>
+          </div>
+          <div class="rating-item">
+            <label>Hygiene (1-5):</label>
+            <div class="score-bar-container" data-max="5" data-name="hygiene">
+              <div class="score-bar-bg"></div>
+              <div class="score-bar-fg"></div>
+              <div class="score-ticks"></div>
+              <input type="hidden" name="hygiene" value="0">
+            </div>
+            <div class="rating-desc"><span>1: Poor</span><span>5: Excellent</span></div>
+          </div>
+          <div class="rating-item">
+            <label>Service Quality (1-5):</label>
+            <div class="score-bar-container" data-max="5" data-name="service_quality">
+              <div class="score-bar-bg"></div>
+              <div class="score-bar-fg"></div>
+              <div class="score-ticks"></div>
+              <input type="hidden" name="service_quality" value="0">
+            </div>
+            <div class="rating-desc"><span>1: Poor</span><span>5: Excellent</span></div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="right-column">
+      <div class="input-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+      </div>
+      <div class="input-group">
+        <label for="email">Email (Optional):</label>
+        <input type="email" id="email" name="email">
+      </div>
+      <div class="input-group">
+        <label for="comment">Comment (Optional):</label>
+        <textarea id="comment" name="comment"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="footer-actions">
+    <button type="button" class="restore-defaults">RESTORE DEFAULTS</button>
+    <button type="submit" form="multi-rating">SAVE</button>
+  </div>
+  <div id="success-message" style="display: none; text-align: center; margin-top: 10px; color: green; font-weight: bold;"></div>
+  <script src="templateLoader.js"></script>
+  <script src="popup.js"></script>
+  <script src="scoreBar.js"></script>
+  <script src="dataStorage.js"></script>
+</body>
+</html> 
