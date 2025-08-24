@@ -1,33 +1,21 @@
 # Website Rating Chrome Extension
 
-这是一个简单的Chrome浏览器扩展，允许用户对他们访问的网站进行评分。
+This is a simple Chrome browser extension that allows users to rate the websites they visit from multiple perspectives.
 
-## 功能特点
+## Installation Steps
 
-- 给当前访问的网站评分（1-5星）
-- 保存评分记录
-- 显示网站的平均评分
-- 简洁的用户界面
+1. Open the Chrome browser.
+2. Enter `chrome://extensions/` in the address bar.
+3. Enable ‘Developer Mode’ in the upper right corner.
+4. Click ‘Load unpacked extension.’
+5. Select the folder containing these files.
 
-## 安装步骤
+## How to Use
 
-1. 打开Chrome浏览器
-2. 在地址栏输入 `chrome://extensions/`
-3. 在右上角启用"开发者模式"
-4. 点击"加载已解压的扩展程序"
-5. 选择包含这些文件的文件夹
+1. After installation, a new icon will appear in the Chrome toolbar
+2. Visit any website
+3. Click the extension icon
+4. In the pop-up window, click the stars to rate
+5. The rating will be automatically saved and the average rating will be displayed
 
-## 使用方法
-
-1. 安装完成后，在Chrome工具栏中会出现一个新的图标
-2. 访问任意网站
-3. 点击扩展图标
-4. 在弹出的窗口中，点击星星进行评分
-5. 评分会自动保存，并显示平均评分
-
-## 文件结构
-
-- `manifest.json`: 扩展的配置文件
-- `popup.html`: 弹出窗口的HTML文件
-- `popup.js`: 实现评分功能的JavaScript文件
-- `images/`: 包含扩展图标的文件夹 
+Translated with DeepL.com (free version)
