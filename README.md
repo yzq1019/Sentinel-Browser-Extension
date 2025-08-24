@@ -16,6 +16,4 @@ This is a simple Chrome browser extension that allows users to rate the websites
 2. Visit any website
 3. Click the extension icon
 4. In the pop-up window, click the stars to rate
-5. The rating will be automatically saved and the average rating will be displayed
-
-Translated with DeepL.com (free version)
+5. The rating will be automatically saved
